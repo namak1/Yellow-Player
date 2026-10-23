@@ -1,6 +1,6 @@
 # Yellow Player
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.2.0 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.3.0 is an early working web release, not full PotPlayer parity.**
 
 ## Run
 
@@ -27,6 +27,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 
 - Local video/audio files and drag/drop, playlist ordering/search/removal, URL playback when browser/server permit it.
 - Play/pause/stop, seek, volume/mute, speed/pitch preservation, fullscreen, repeat and A–B interval loop.
+- Embedded audio-track selector under Audio → Audio track; A cycles supported tracks. Local files use native browser tracks or independent WebCodecs decoding over HTTPS/localhost. Unsupported codecs are disabled. Independent decoding changes pitch with playback speed.
 - Searchable system-font picker (browser permission required where supported), manual installed-font names and font-file import.
 - Subtitle cue editor with SRT export, sync-to-current-line and two-point drift correction.
 - Nested desktop-style player menus, go-to-time and media information.
@@ -49,7 +50,7 @@ Offline cache is built and its fetch logic unit-tested; airplane-mode browser re
 
 Repository: https://github.com/namak1/Yellow-Player. Source is published through the connected GitHub account.
 
-The project is configured for the `main` branch. Enable **Settings → Pages → Build and deployment → GitHub Actions**. `.github/workflows/pages.yml` runs build/tests and deploys `dist/`. The intended URL is `https://namak1.github.io/Yellow-Player/`; it is not a verified live deployment.
+The project is configured for the `main` branch. Enable **Settings → Pages → Build and deployment → GitHub Actions**. `.github/workflows/pages.yml` runs build/tests and deploys `dist/`. The intended URL is `https://namak1.github.io/Yellow-Player/`; deployment has been verified.
 
 ## Experimental macOS source
 

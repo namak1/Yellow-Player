@@ -11,3 +11,5 @@ Exact resolved JavaScript versions are in package-lock.json.
 - DejaVu Sans fallback font: see public/libass/FONT-LICENSE.txt; https://dejavu-fonts.github.io/.
 
 mpv/FFmpeg are not included. Native source expects a user-installed mpv. Do not bundle or release codecs until exact license/build-option obligations have been reviewed. This document is an engineering checklist, not legal advice or distribution clearance.
+
+- Mediabunny 1.62.1, MPL-2.0: unmodified library bundled into the application. License: public/licenses/Mediabunny-MPL-2.0.txt. Corresponding source (src/ directory): https://www.npmjs.com/package/mediabunny/v/1.62.1 ; upstream: https://github.com/Vanilagy/mediabunny.

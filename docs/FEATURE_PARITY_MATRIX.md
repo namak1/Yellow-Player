@@ -1,4 +1,4 @@
-# Feature parity — 0.2.0
+# Feature parity — 0.3.0
 
 Implemented means code exists; see TESTING.md for actual validation. Native bridge source is experimental and untested throughout. PotPlayer support is verified only where sources S1/S2 say so; requested specialist fields may need investigation.
 
@@ -18,7 +18,7 @@ Implemented means code exists; see TESTING.md for actual validation. Native brid
 | Repeat / A–B | Requested; exact menu unverified | Implemented | Not integrated | Manual QA pending |
 | Frame stepping / chapters | S1 chapters; step details uncertain | Not implemented | Not integrated | Future work |
 | Equalizer | Requested; exact UI unverified | Implemented WebAudio | Not integrated | Local media only, listening QA pending |
-| Audio tracks | S2 | Not implemented | Cycle command source | Browser limitation |
+| Audio tracks | S2 | Native tracks or local demux/WebCodecs; A cycles | Cycle command source | Secure context and supported codecs required; independent decoding changes pitch at non-1× speed |
 | Audio delay/normalization/ReplayGain | S2 | Not implemented | Not integrated | Future work |
 | Video color, rotate, zoom, fit | S2 | Implemented CSS | Not integrated | Original ASS transform alignment limited |
 | Snapshot | S1/S2 | Implemented | Not integrated | Excludes subtitles and transforms |
