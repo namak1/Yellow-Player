@@ -11,4 +11,5 @@ test('service worker updates cached app HTML online, retains offline fallback an
  cache.set(scope,{version:'stale root'});online=true;assert.equal(await navigate(),fresh);assert.equal(requests,1);online=false;assert.deepEqual(await navigate(),{version:'latest cached'});
  let intercepted=false;handlers.fetch({request:{url:'https://remote.example/video.mp4',method:'GET'},respondWith:()=>intercepted=true});assert.equal(intercepted,false);
  const assetKey=[...cache.keys()].find(k=>k.endsWith('.wasm'))!;const count=requests;let asset:Promise<unknown>=Promise.resolve();handlers.fetch({request:{url:assetKey,method:'GET'},respondWith:(p:Promise<unknown>)=>asset=p});assert.ok(await asset);assert.equal(requests,count);
+ let icon:Promise<unknown>=Promise.resolve();handlers.fetch({request:{url:scope+'icon.svg',method:'GET',mode:'navigate'},respondWith:(p:Promise<unknown>)=>icon=p});assert.deepEqual(await icon,{asset:'./icon.svg'});assert.deepEqual(cache.get(scope+'index.html'),{version:'latest cached'});
 });
