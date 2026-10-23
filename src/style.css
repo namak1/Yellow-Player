@@ -8,3 +8,14 @@ body{background:#080808;min-height:100dvh;display:grid;place-items:center;paddin
 /* Playback and letterbox surfaces are always absolute black. */
 html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.desktop-player .stage,.desktop-player video,.desktop-player:fullscreen{background:#000}
 .subtitle-text{font-synthesis:none;font-kerning:normal;text-rendering:optimizeLegibility}
+
+.subtitle-line{display:block;unicode-bidi:isolate;white-space:pre-wrap;min-height:1em}
+.fullscreen-controls-zone{flex-shrink:0}
+.desktop-player.fullscreen-player main{position:relative}
+.fullscreen-player .fullscreen-controls-zone{position:absolute;z-index:12;bottom:0;left:0;right:0;height:78px}
+.fullscreen-player .fullscreen-controls-zone .transport{position:absolute;bottom:0;left:0;right:0;opacity:0;transform:translateY(100%);pointer-events:none;transition:opacity .15s ease,transform .15s ease}
+.fullscreen-player .fullscreen-controls-zone:hover .transport,.fullscreen-player .fullscreen-controls-zone:has(:focus-visible) .transport{opacity:1;transform:translateY(0);pointer-events:auto}
+@media(hover:none){.fullscreen-player .fullscreen-controls-zone .transport{opacity:1;transform:none;pointer-events:auto}}
+@media(prefers-reduced-motion:reduce){.fullscreen-player .fullscreen-controls-zone .transport{transition:none}}
+
+.desktop-player.fullscreen-player{position:fixed;inset:0;z-index:50}

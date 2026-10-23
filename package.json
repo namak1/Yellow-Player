@@ -1,12 +1,12 @@
 {
   "name": "yellow-player",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build && node scripts/cache-manifest.mjs",
-    "test": "node --import tsx --test tests/*.test.ts",
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx",
     "preview": "vite preview --host 0.0.0.0",
     "native:dev": "tauri dev",
     "native:build": "tauri build --no-bundle"

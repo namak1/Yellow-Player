@@ -1,4 +1,4 @@
-# Feature parity — 0.4.0
+# Feature parity — 0.5.0
 
 Implemented means code exists; see TESTING.md for actual validation. Native bridge source is experimental and untested throughout. PotPlayer support is verified only where sources S1/S2 say so; requested specialist fields may need investigation.
 
@@ -20,11 +20,11 @@ Implemented means code exists; see TESTING.md for actual validation. Native brid
 | Equalizer | Requested; exact UI unverified | Implemented WebAudio | Not integrated | Local media only, listening QA pending |
 | Audio tracks | S2 | Native tracks or local demux/WebCodecs; A cycles | Cycle command source | Secure context and supported codecs required; independent decoding changes pitch at non-1× speed |
 | Audio delay/normalization/ReplayGain | S2 | Not implemented | Not integrated | Future work |
-| Video color, rotate, zoom, fit | S2 | Implemented CSS | Not integrated | Original ASS transform alignment limited |
+| Video color, rotate, zoom, fit | S2 | Implemented CSS, Vivid/Original profiles | Not integrated | Original ASS transform alignment limited |
 | Snapshot | S1/S2 | Implemented | Not integrated | Excludes subtitles and transforms |
 | HDR/shaders/deinterlace/interpolation | S2 | Not implemented | mpv potential, not integrated | Future work |
 | Hardware acceleration | S1/S2 | Browser controlled | auto-safe mpv source | No hardware QA |
-| Fullscreen/context/preferences/themes | S2 partial | Implemented | Shared frontend; mpv fullscreen source | OS/browser QA pending |
+| Fullscreen/context/preferences/themes | S2 partial | Implemented | Shared frontend; mpv fullscreen source | Bottom-hover transport checked in expanded window; native fullscreen OS/browser QA pending |
 | Offline / PWA | Yellow requirement | Generated cache, manifest | N/A | Worker logic tested, real offline QA pending |
 | Disc menus/capture/plugins/always-on-top | S1/S2 partial | Not implemented | Not integrated | Native work required |
 | Repository/CI/Pages | Yellow requirement | Workflow prepared | Compile workflow prepared | Source published; gh-pages built branch prepared |

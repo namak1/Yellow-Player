@@ -1,0 +1,2 @@
+import{cleanSubtitleBidi,subtitleDirection,type SubtitleDirection}from'./subtitleDirection';
+export default function SubtitleText({text,direction='auto'}:{text:string;direction?:SubtitleDirection}){if(!text)return null;return text.split('\n').map((line,i)=><span key={i} className="subtitle-line" dir={subtitleDirection(line,direction)}>{cleanSubtitleBidi(line)||'\u00a0'}</span>);}
