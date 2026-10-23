@@ -1,4 +1,4 @@
-# Feature parity — 0.1.0
+# Feature parity — 0.2.0
 
 Implemented means code exists; see TESTING.md for actual validation. Native bridge source is experimental and untested throughout. PotPlayer support is verified only where sources S1/S2 say so; requested specialist fields may need investigation.
 
@@ -8,7 +8,7 @@ Implemented means code exists; see TESTING.md for actual validation. Native brid
 | Playback speed | S2 | Implemented | Experimental bridge | Cross-browser QA pending |
 | SRT / VTT | S1/S2; VTT behavior needs inspection | Implemented | mpv subtitle loading source | SRT Chromium tested |
 | ASS/SSA original rendering | S1/S2 | libass/WASM implemented | mpv source | Simple ASS visually tested |
-| Subtitle fonts/size/outline/position | S2 partial; exact fields uncertain | Implemented in text mode | Font/size bridge source | Custom font session-only |
+| Subtitle fonts/size/outline/position | S2 partial; exact fields uncertain | Implemented in text mode | Font/size bridge source | System font enumeration where supported; font files session-only |
 | Subtitle synchronization | S2 | Per-media/per-track offsets | Delay bridge source | Unit and Chromium checked |
 | Dual subtitles | S2 | Implemented; second text-only | Not implemented in bridge UI | Partial |
 | Embedded/bitmap subtitles | S1/S2 | Not implemented | mpv track cycle source | Native testing needed |
@@ -27,5 +27,5 @@ Implemented means code exists; see TESTING.md for actual validation. Native brid
 | Fullscreen/context/preferences/themes | S2 partial | Implemented | Shared frontend; mpv fullscreen source | OS/browser QA pending |
 | Offline / PWA | Yellow requirement | Generated cache, manifest | N/A | Worker logic tested, real offline QA pending |
 | Disc menus/capture/plugins/always-on-top | S1/S2 partial | Not implemented | Not integrated | Native work required |
-| Repository/CI/Pages | Yellow requirement | Workflow prepared | Compile workflow prepared | Source upload in progress; Pages enablement/deployment pending |
+| Repository/CI/Pages | Yellow requirement | Workflow prepared | Compile workflow prepared | Source published; gh-pages built branch prepared |
 | Signed macOS app | Yellow requirement | N/A | Not delivered | Compile, package, sign, notarize pending |

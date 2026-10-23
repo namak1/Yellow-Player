@@ -1,7 +1,7 @@
 # Executed validation — 2026-10-23
 
 - TypeScript compile and Vite production build: passed.
-- Node tests: 11 passed (subtitle parse/timing, browser engine, generated worker cache behavior).
+- Node tests: 17 passed (subtitle parse/timing, browser engine, generated worker cache behavior).
 - Browser: cloud Chromium, local generated H.264/AAC 640×360, 25fps, 30-second MP4.
 - Observed actual video playback, 30-second duration and decoded dimensions.
 - Loaded SRT English/Persian text and observed rendered cue.
@@ -22,3 +22,7 @@ Not validated: native Rust compile or macOS IPC/runtime, Safari, Firefox, mobile
 6. Production only: load once, wait for service worker installation, reload once, disconnect internet, close tab and reopen URL. App must load; reopen local file. No remote stream should be expected offline.
 7. Run on current Chrome/Safari/Firefox with H.264/AAC, VP9/Opus, AV1 and HEVC/MKV corpus; record each browser/OS/codec tuple. Test >4GB video without full-file memory copies.
 8. macOS: compile workflow, install mpv separately, launch Native engine; exercise playback/sub-delay/track cycling and close app to verify owned child shutdown. Inspect hardware decoding. Do not publish a signed installer before these pass.
+
+## Version 0.2 checks
+
+Built production 0.2 and passed 17 tests including all-font enumeration normalization, denied/unsupported permissions, SRT export and two-point timing correction. In Chromium, opened MP4/SRT, paused, selected a cue, edited English/Persian text and observed the updated on-video overlay. Inspected compact desktop layout and nested subtitle menu. Actual system-font permission and OS font list require user-machine validation.

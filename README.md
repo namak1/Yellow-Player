@@ -1,6 +1,6 @@
 # Yellow Player
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.1.0 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.2.0 is an early working web release, not full PotPlayer parity.**
 
 ## Run
 
@@ -27,6 +27,9 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 
 - Local video/audio files and drag/drop, playlist ordering/search/removal, URL playback when browser/server permit it.
 - Play/pause/stop, seek, volume/mute, speed/pitch preservation, fullscreen, repeat and A–B interval loop.
+- Searchable system-font picker (browser permission required where supported), manual installed-font names and font-file import.
+- Subtitle cue editor with SRT export, sync-to-current-line and two-point drift correction.
+- Nested desktop-style player menus, go-to-time and media information.
 - SRT/VTT and ASS/SSA. Original ASS styling through libass/WASM; optional customizable text fallback. Secondary track is text-mode.
 - Subtitle family/custom font, size, bold/italic, color, outline, shadow, background, opacity, alignment, margin and RTL text.
 - Delay controls with 100/500/1000 ms or custom increments; offset stored per media/track. Positive means later.
