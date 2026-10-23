@@ -1,6 +1,6 @@
 # Yellow Player
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.5.0 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.5.1 is an early working web release, not full PotPlayer parity.**
 
 ## Run
 
@@ -34,6 +34,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Automatic local MKV embedded SRT/ASS/SSA/WebVTT and MP4 tx3g/WebVTT extraction, track selection, and MKV attached fonts for original ASS rendering. Bitmap/encrypted/compressed subtitle tracks are reported as unsupported. Extraction reads bounded chunks on your device.
 - Vivid colors by default, unfiltered Original profile and persistent color adjustments under Preferences → Video. Vivid is a contrast/saturation preference, not calibrated PotPlayer or HDR parity.
 - Fullscreen playback bar appears at the bottom hover area and for keyboard focus; touch devices keep controls visible. Browser fullscreen falls back to filling the window if unavailable.
+- Legacy Persian sentence periods stored before the first word are normalized for display in text and ASS, without changing subtitle exports.
 - Per-line Persian/Arabic RTL punctuation, mixed English lines and an explicit text-direction setting; display corrections also apply to ASS without changing exported cues.
 - Real installed font weights without synthetic bold/italic; crisp subtitle shadow; pure black letterbox/background.
 - SRT/VTT and ASS/SSA. Original ASS styling through libass/WASM; optional customizable text fallback. Secondary track is text-mode.
