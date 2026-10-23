@@ -1,6 +1,6 @@
 # Yellow Player
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.3.0 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.4.0 is an early working web release, not full PotPlayer parity.**
 
 ## Run
 
@@ -31,6 +31,8 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Searchable system-font picker (browser permission required where supported), manual installed-font names and font-file import.
 - Subtitle cue editor with SRT export, sync-to-current-line and two-point drift correction.
 - Nested desktop-style player menus, go-to-time and media information.
+- Automatic local MKV embedded SRT/ASS/SSA/WebVTT and MP4 tx3g/WebVTT extraction, track selection, and MKV attached fonts for original ASS rendering. Bitmap/encrypted/compressed subtitle tracks are reported as unsupported. Extraction reads bounded chunks on your device.
+- Real installed font weights without synthetic bold/italic; crisp subtitle shadow; pure black letterbox/background.
 - SRT/VTT and ASS/SSA. Original ASS styling through libass/WASM; optional customizable text fallback. Secondary track is text-mode.
 - Subtitle family/custom font, size, bold/italic, color, outline, shadow, background, opacity, alignment, margin and RTL text.
 - Delay controls with 100/500/1000 ms or custom increments; offset stored per media/track. Positive means later.
@@ -40,7 +42,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 
 ## Important limits
 
-Browser decoding is not FFmpeg-level coverage. MKV/HEVC and embedded track support vary; embedded subtitle demux, bitmap subtitles, disc menus, online subtitle search/translation, recording, advanced HDR/shaders/interpolation and many native features are not implemented. Exact frame stepping is not offered. Snapshot includes video color filters but excludes subtitle overlays/rotation/crop. Custom fonts apply to text mode and are session-only; original ASS uses bundled DejaVu Sans fallback. Media files are not retained across reloads; reopen the same files to resume. Playlist metadata export is not a playable saved-file grant.
+Browser decoding is not FFmpeg-level coverage. MKV/HEVC and embedded track support vary; bitmap subtitles, disc menus, online subtitle search/translation, recording, advanced HDR/shaders/interpolation and many native features are not implemented. Exact frame stepping is not offered. Snapshot includes video color filters but excludes subtitle overlays/rotation/crop. Custom fonts apply to text mode and are session-only; original ASS uses bundled DejaVu Sans fallback. Media files are not retained across reloads; reopen the same files to resume. Playlist metadata export is not a playable saved-file grant.
 
 Remote streams require CORS because the media element supports Web Audio. Equalizer UI is restricted to local media. CSS video transforms do not transform original ASS overlays; use default fit/rotation for styled ASS alignment.
 

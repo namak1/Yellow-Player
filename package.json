@@ -1,6 +1,6 @@
 {
   "name": "yellow-player",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,6 +17,7 @@
     "libass-wasm": "^4.1.0",
     "lucide-react": "^0.468.0",
     "mediabunny": "^1.62.1",
+    "mp4box": "^2.4.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

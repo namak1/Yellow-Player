@@ -1,5 +1,5 @@
 export type Cue={start:number;end:number;text:string};
-export type SubtitleTrack={id:string;name:string;cues:Cue[];fallback:boolean;content?:string};
+export type SubtitleTrack={id:string;name:string;cues:Cue[];fallback:boolean;content?:string;sourceKey?:string;isDefault?:boolean};
 export function timestamp(value:string):number {
  const parts=value.trim().replace(',','.').split(':').map(Number);
  if(parts.length<2||parts.length>3||parts.some(x=>!Number.isFinite(x)||x<0))return NaN;

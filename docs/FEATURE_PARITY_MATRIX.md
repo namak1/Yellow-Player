@@ -1,4 +1,4 @@
-# Feature parity — 0.3.0
+# Feature parity — 0.4.0
 
 Implemented means code exists; see TESTING.md for actual validation. Native bridge source is experimental and untested throughout. PotPlayer support is verified only where sources S1/S2 say so; requested specialist fields may need investigation.
 
@@ -11,7 +11,7 @@ Implemented means code exists; see TESTING.md for actual validation. Native brid
 | Subtitle fonts/size/outline/position | S2 partial; exact fields uncertain | Implemented in text mode | Font/size bridge source | System font enumeration where supported; font files session-only |
 | Subtitle synchronization | S2 | Per-media/per-track offsets | Delay bridge source | Unit and Chromium checked |
 | Dual subtitles | S2 | Implemented; second text-only | Not implemented in bridge UI | Partial |
-| Embedded/bitmap subtitles | S1/S2 | Not implemented | mpv track cycle source | Native testing needed |
+| Embedded text / bitmap subtitles | S1/S2 | MKV SRT/ASS/SSA/WebVTT, MP4 tx3g/WebVTT, ASS attached fonts | mpv track cycle source | Bitmap/encrypted/compressed subtitles and live unknown-size MKV clusters unsupported |
 | Subtitle search/translation/Whisper | S2 | Not implemented | Not implemented | Future work |
 | Resume/history/bookmarks | S1/S2 | Implemented metadata | Not integrated | Reopen files after reload |
 | Playlist filtering/reorder | S2 | Implemented session queue | Not integrated | Persistent playlist restore missing |
