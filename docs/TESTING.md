@@ -26,3 +26,7 @@ Not validated: native Rust compile or macOS IPC/runtime, Safari, Firefox, mobile
 ## Version 0.2 checks
 
 Built production 0.2 and passed 17 tests including all-font enumeration normalization, denied/unsupported permissions, SRT export and two-point timing correction. In Chromium, opened MP4/SRT, paused, selected a cue, edited English/Persian text and observed the updated on-video overlay. Inspected compact desktop layout and nested subtitle menu. Actual system-font permission and OS font list require user-machine validation.
+
+## Version 0.3 audio-track checks
+
+Production build and all 20 Node tests passed. Added tests for two-track AAC demux, language/default metadata, native selection, invalid selection and time/rate scheduling. GitHub Actions build/tests and Pages deployment succeeded. On the live HTTPS site in Chromium, a local 30-second H.264 video with two AAC tracks (English/Persian labels, 440/880 Hz test tones) exposed both tracks as decodable. Selected each track, paused, sought to 12 seconds, resumed, cycled and restored default browser audio without a decoder error or playback reset. This validates decoder execution and UI state; audible quality and long-duration synchronization still require listening tests. Plain HTTP terminal preview could enumerate tracks but correctly could not use secure-context WebCodecs. Safari/Firefox, multichannel codecs and large files remain untested.
