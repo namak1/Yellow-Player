@@ -1,9 +1,0 @@
-1
-00:00:00,000 --> 00:00:15,000
-Yellow Player — subtitle test
-سلام دنیا
-
-2
-00:00:15,000 --> 00:00:30,000
-Second subtitle — sync check
-آزمایش زیرنویس فارسی

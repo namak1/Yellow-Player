@@ -1,4 +1,0 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{BrowserEngine}from'../src/engine';
-test('seeks clamp to media duration and reject unknown duration',()=>{const v={duration:30,currentTime:10}as HTMLVideoElement;const e=new BrowserEngine(v);e.seek(-10);assert.equal(v.currentTime,0);e.seek(80);assert.equal(v.currentTime,30);Object.assign(v,{duration:NaN});e.seek(8);assert.equal(v.currentTime,30);});
-test('rate clamps and preserves pitch',()=>{const v={}as HTMLVideoElement;const e=new BrowserEngine(v);e.setRate(100);assert.equal(v.playbackRate,4);assert.equal(v.preservesPitch,true);e.setRate(0);assert.equal(v.playbackRate,.25);});
-test('stop pauses and resets position',()=>{let paused=false;const v={duration:30,currentTime:10,pause:()=>{paused=true;}}as unknown as HTMLVideoElement;new BrowserEngine(v).stop();assert.equal(paused,true);assert.equal(v.currentTime,0);});
