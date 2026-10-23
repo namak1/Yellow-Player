@@ -1,1 +1,68 @@
-# Yellow-Player
+# Yellow Player
+
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.1.0 is an early working web release, not full PotPlayer parity.**
+
+## Run
+
+The download includes a prebuilt `dist/`. On macOS with Python 3 installed, run `python3 scripts/serve.py` (or the included `Start-Yellow-Player.command`) to open the player locally without npm installation. Keep the terminal open. This starts the web edition, not the experimental native engine.
+
+Requires Node.js 22+.
+
+```sh
+npm ci
+npm run dev
+```
+
+For a production build:
+
+```sh
+npm run build
+npm test
+npm run preview
+```
+
+Alternatively, serve the included `dist/` directory with a local HTTP server (`python3 -m http.server 8080 --directory dist`). Do not open index.html with file://. No media is uploaded. Opening a remote URL contacts its server.
+
+## Included
+
+- Local video/audio files and drag/drop, playlist ordering/search/removal, URL playback when browser/server permit it.
+- Play/pause/stop, seek, volume/mute, speed/pitch preservation, fullscreen, repeat and A–B interval loop.
+- SRT/VTT and ASS/SSA. Original ASS styling through libass/WASM; optional customizable text fallback. Secondary track is text-mode.
+- Subtitle family/custom font, size, bold/italic, color, outline, shadow, background, opacity, alignment, margin and RTL text.
+- Delay controls with 100/500/1000 ms or custom increments; offset stored per media/track. Positive means later.
+- Cue browser, bookmarks, resume metadata, recent history, persistent preferences.
+- Local-media 10-band equalizer and two presets; visual color adjustments, rotation, flip, zoom/fit/crop and frame capture.
+- Dark/light themes, keyboard shortcuts, context menu, PWA manifest, generated offline asset cache.
+
+## Important limits
+
+Browser decoding is not FFmpeg-level coverage. MKV/HEVC and embedded track support vary; embedded subtitle demux, bitmap subtitles, disc menus, online subtitle search/translation, recording, advanced HDR/shaders/interpolation and many native features are not implemented. Exact frame stepping is not offered. Snapshot includes video color filters but excludes subtitle overlays/rotation/crop. Custom fonts apply to text mode and are session-only; original ASS uses bundled DejaVu Sans fallback. Media files are not retained across reloads; reopen the same files to resume. Playlist metadata export is not a playable saved-file grant.
+
+Remote streams require CORS because the media element supports Web Audio. Equalizer UI is restricted to local media. CSS video transforms do not transform original ASS overlays; use default fit/rotation for styled ASS alignment.
+
+Offline cache is built and its fetch logic unit-tested; airplane-mode browser reload has not yet been validated. Production asset cache does not cache media. Safari, Firefox, high-resolution and large-file testing remain outstanding.
+
+## GitHub Pages
+
+Repository: https://github.com/namak1/Yellow-Player. Source is published through the connected GitHub account.
+
+The project is configured for the `main` branch. Enable **Settings → Pages → Build and deployment → GitHub Actions**. `.github/workflows/pages.yml` runs build/tests and deploys `dist/`. The intended URL is `https://namak1.github.io/Yellow-Player/`; it is not a verified live deployment.
+
+## Experimental macOS source
+
+`src-tauri/` contains a Tauri 2 shell and constrained mpv Unix-socket bridge. On a Mac with Rust, Xcode command-line tools and separately installed mpv (`brew install mpv`):
+
+```sh
+npm ci
+npm run native:dev
+```
+
+The **Native engine** button appears only in Tauri. It opens mpv's separate native video window and provides file/subtitle loading, playback, seek, speed, volume, subtitle delay/font/size and track cycling. This is **not embedded libmpv**. Native compilation, IPC operation, Apple Silicon decoding and packaging have **not been tested** on this Linux environment. No installer, signing, notarization or native release is provided. `macos.yml` is a manually triggered compile workflow, not a validated release pipeline.
+
+## Research and status
+
+See `docs/RESEARCH_SOURCES.md`, `docs/POTPLAYER_FEATURE_INVENTORY.md`, `docs/FEATURE_PARITY_MATRIX.md` and `docs/TESTING.md`. Research is a documented baseline with gaps, not an exhaustive reverse engineering of PotPlayer.
+
+## Licensing
+
+Original application code: MIT. PotPlayer is proprietary; no proprietary code/assets are included. Third-party notices are in `THIRD_PARTY_NOTICES.md` and `public/libass/`. mpv/FFmpeg are not bundled. Their licensing depends on exact build configuration and must be checked before native distribution.

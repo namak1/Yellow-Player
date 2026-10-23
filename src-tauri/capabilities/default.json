@@ -1,0 +1,1 @@
+{"identifier":"main","description":"Local file chooser for Yellow Player","windows":["main"],"permissions":["core:default","dialog:allow-open"]}

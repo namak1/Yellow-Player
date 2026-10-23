@@ -1,0 +1,7 @@
+import{readdir,writeFile,readFile}from'node:fs/promises';import{createHash}from'node:crypto';
+async function files(dir){let out=[];for(const e of await readdir(dir,{withFileTypes:true})){const p=`${dir}/${e.name}`;out.push(...(e.isDirectory()?await files(p):[p]));}return out;}
+const assets=(await files('dist')).filter(x=>!x.endsWith('sw.js')).map(x=>'./'+x.slice(5));const hash=createHash('sha256');for(const asset of assets){hash.update(asset);hash.update(await readFile('dist/'+asset.slice(2)));}const version=hash.digest('hex').slice(0,12);
+await writeFile('dist/sw.js',`const CACHE='yellow-${version}',ASSETS=${JSON.stringify(assets)};
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('yellow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{const u=new URL(event.request.url);if(event.request.method!=='GET'||u.origin!==location.origin)return;event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request).catch(error=>{if(event.request.mode==='navigate')return caches.match(new URL('./index.html',self.registration.scope));throw error;})));});`);

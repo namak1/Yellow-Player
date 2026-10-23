@@ -1,0 +1,31 @@
+# Feature parity — 0.1.0
+
+Implemented means code exists; see TESTING.md for actual validation. Native bridge source is experimental and untested throughout. PotPlayer support is verified only where sources S1/S2 say so; requested specialist fields may need investigation.
+
+| Feature | PotPlayer evidence | Yellow Web | Yellow macOS | Status / gap |
+|---|---|---|---|---|
+| Local playback, seek, volume | S1/S2 | Implemented | Experimental bridge | Browser codec limits |
+| Playback speed | S2 | Implemented | Experimental bridge | Cross-browser QA pending |
+| SRT / VTT | S1/S2; VTT behavior needs inspection | Implemented | mpv subtitle loading source | SRT Chromium tested |
+| ASS/SSA original rendering | S1/S2 | libass/WASM implemented | mpv source | Simple ASS visually tested |
+| Subtitle fonts/size/outline/position | S2 partial; exact fields uncertain | Implemented in text mode | Font/size bridge source | Custom font session-only |
+| Subtitle synchronization | S2 | Per-media/per-track offsets | Delay bridge source | Unit and Chromium checked |
+| Dual subtitles | S2 | Implemented; second text-only | Not implemented in bridge UI | Partial |
+| Embedded/bitmap subtitles | S1/S2 | Not implemented | mpv track cycle source | Native testing needed |
+| Subtitle search/translation/Whisper | S2 | Not implemented | Not implemented | Future work |
+| Resume/history/bookmarks | S1/S2 | Implemented metadata | Not integrated | Reopen files after reload |
+| Playlist filtering/reorder | S2 | Implemented session queue | Not integrated | Persistent playlist restore missing |
+| Repeat / A–B | Requested; exact menu unverified | Implemented | Not integrated | Manual QA pending |
+| Frame stepping / chapters | S1 chapters; step details uncertain | Not implemented | Not integrated | Future work |
+| Equalizer | Requested; exact UI unverified | Implemented WebAudio | Not integrated | Local media only, listening QA pending |
+| Audio tracks | S2 | Not implemented | Cycle command source | Browser limitation |
+| Audio delay/normalization/ReplayGain | S2 | Not implemented | Not integrated | Future work |
+| Video color, rotate, zoom, fit | S2 | Implemented CSS | Not integrated | Original ASS transform alignment limited |
+| Snapshot | S1/S2 | Implemented | Not integrated | Excludes subtitles and transforms |
+| HDR/shaders/deinterlace/interpolation | S2 | Not implemented | mpv potential, not integrated | Future work |
+| Hardware acceleration | S1/S2 | Browser controlled | auto-safe mpv source | No hardware QA |
+| Fullscreen/context/preferences/themes | S2 partial | Implemented | Shared frontend; mpv fullscreen source | OS/browser QA pending |
+| Offline / PWA | Yellow requirement | Generated cache, manifest | N/A | Worker logic tested, real offline QA pending |
+| Disc menus/capture/plugins/always-on-top | S1/S2 partial | Not implemented | Not integrated | Native work required |
+| Repository/CI/Pages | Yellow requirement | Workflow prepared | Compile workflow prepared | Source upload in progress; Pages enablement/deployment pending |
+| Signed macOS app | Yellow requirement | N/A | Not delivered | Compile, package, sign, notarize pending |
