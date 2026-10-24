@@ -8,6 +8,22 @@ Open the browser-based player directly to explore and test it—no installation 
 
 A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.5.2 is an early working web release, not full PotPlayer parity.**
 
+## Screenshots
+
+Screenshots from working web builds, using generated test media.
+
+### Playback and embedded subtitles
+
+![Yellow Player with embedded Persian subtitles and track controls](docs/screenshots/playback-subtitles.jpg)
+
+### Subtitle fonts and synchronization
+
+![Subtitle font, size, style, and synchronization settings](docs/screenshots/subtitle-settings.jpg)
+
+### Audio tracks and equalizer
+
+![Embedded audio-track selection and 10-band equalizer](docs/screenshots/audio-settings.jpg)
+
 ## Run
 
 The download includes a prebuilt `dist/`. On macOS with Python 3 installed, run `python3 scripts/serve.py` (or the included `Start-Yellow-Player.command`) to open the player locally without npm installation. Keep the terminal open. This starts the web edition, not the experimental native engine.
