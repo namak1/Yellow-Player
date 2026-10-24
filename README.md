@@ -12,9 +12,13 @@ A real local-first React/TypeScript media player with an original graphite-and-y
 
 Screenshots from working web builds, using generated test media.
 
-### Playback and embedded subtitles
+### Player idle
 
-![Yellow Player with embedded Persian subtitles and track controls](docs/screenshots/playback-subtitles.jpg)
+![Yellow Player with no media loaded](docs/screenshots/player-idle.jpg)
+
+### English subtitles
+
+![Yellow Player playing a sample animation with English subtitles](docs/screenshots/english-subtitles.jpg)
 
 ### Subtitle fonts and synchronization
 
