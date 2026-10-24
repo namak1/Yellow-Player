@@ -21,3 +21,11 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .desktop-player.fullscreen-player{position:fixed;inset:0;z-index:50}
 
 .app-version{color:#aaa;font-size:10px;padding:0 7px;white-space:nowrap}
+
+/* Keep a thin timeline with a larger click and drag target. */
+.desktop-player input.timeline{appearance:none;height:16px;border:0;background:transparent;touch-action:none}
+.timeline::-webkit-slider-runnable-track{height:3px;background:#666;border:1px solid #999}
+.timeline::-webkit-slider-thumb{appearance:none;width:14px;height:14px;margin-top:-6.5px;border:0;border-radius:50%;background:var(--yellow)}
+.timeline::-moz-range-track{height:1px;background:#666;border:1px solid #999}
+.timeline::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--yellow)}
+.timeline:disabled{opacity:.45;cursor:default}
