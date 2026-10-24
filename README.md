@@ -6,7 +6,7 @@ Open the browser-based player directly to explore and test it—no installation 
 
 > **About this project:** Yellow Player is an independent media player inspired by popular players such as PotPlayer and KMPlayer. It is **not reverse-engineered** from those applications, does not use their proprietary source code, and is not affiliated with their developers.
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.5.6 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.0 is an early working web release, not full PotPlayer parity.**
 
 ## Screenshots
 
@@ -57,7 +57,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Searchable system-font picker (browser permission required where supported), manual installed-font names and font-file import.
 - Subtitle cue editor with SRT export, sync-to-current-line and two-point drift correction.
 - Nested desktop-style player menus, go-to-time and media information.
-- Automatic local MKV embedded SRT/ASS/SSA/WebVTT and MP4 tx3g/WebVTT extraction, track selection, and MKV attached fonts for original ASS rendering. Bitmap/encrypted/compressed subtitle tracks are reported as unsupported. Extraction reads bounded chunks on your device.
+- Automatic local MKV embedded SRT/ASS/SSA/WebVTT and MP4 tx3g/WebVTT extraction, track selection, and MKV attached fonts for original ASS rendering. PGS and VobSub bitmap subtitles are supported in MKV, plus external `.sup` and paired `.idx`/`.sub` files. Encrypted/compressed tracks remain unsupported. Extraction reads bounded chunks on your device.
 - Vivid colors by default, unfiltered Original profile and persistent color adjustments under Preferences → Video. Vivid is a contrast/saturation preference, not calibrated PotPlayer or HDR parity.
 - Fullscreen playback bar appears at the bottom hover area and for keyboard focus; touch devices keep controls visible. Browser fullscreen falls back to filling the window if unavailable.
 - The loaded version is visible in the title bar. Online reloads request fresh HTML; complete service-worker updates activate without waiting for other tabs to close. Open media is not automatically reloaded.
@@ -68,12 +68,16 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Subtitle family/custom font, size, bold/italic, color, outline, shadow, background, opacity, alignment, margin and RTL text.
 - Delay controls with 100/500/1000 ms or custom increments; offset stored per media/track. Positive means later.
 - Cue browser, bookmarks, resume metadata, recent history, persistent preferences.
+- Previous/next frame: `<` / `>` (pauses playback). Ctrl + mouse wheel zooms from 50% to 300%. Cursor hides after 1.8 seconds of inactivity over playing video.
+- Manual aspect presets, gamma, exposure, and Reinhard/Hable/ACES display curves under Preferences → Video. These process browser-decoded pixels; the browser retains control over HDR decoding/tone mapping. Source-peak and target-white controls cannot restore highlights already clipped by the browser.
+- Audio delay from −10 to +10 seconds under Preferences → Audio. Positive delay uses Web Audio for browser audio; negative delay requires a locally decodable audio codec and uses synchronized independent decoding. Unsupported requests preserve playback and report the limitation.
+- Bitmap subtitle timing and track selection are supported; bitmap font changes, OCR/text editing, DVD menu/high-definition SPU commands, encrypted/compressed streams, and palette fades are not implemented. External VobSub requires both matching files; individual SPUs are bounded to 1 MB, total bitmap input to 32 MB.
 - Local-media 10-band equalizer and two presets; visual color adjustments, rotation, flip, zoom/fit/crop and frame capture.
 - Dark/light themes, keyboard shortcuts, context menu, PWA manifest, generated offline asset cache.
 
 ## Important limits
 
-Browser decoding is not FFmpeg-level coverage. MKV/HEVC and embedded track support vary; bitmap subtitles, disc menus, online subtitle search/translation, recording, advanced HDR/shaders/interpolation and many native features are not implemented. Exact frame stepping is not offered. Snapshot includes video color filters but excludes subtitle overlays/rotation/crop. Custom fonts apply to text mode and are session-only; original ASS uses bundled DejaVu Sans fallback. Media files are not retained across reloads; reopen the same files to resume. Playlist metadata export is not a playable saved-file grant.
+Browser decoding is not FFmpeg-level coverage. MKV/HEVC and embedded track support vary; disc menus, online subtitle search/translation, recording, raw HDR decoding/interpolation and many native features are not implemented. Local frame stepping uses packet presentation timestamps; network streams use an approximate 30 fps fallback. Snapshot includes video color filters but excludes subtitle overlays/rotation/crop. Custom fonts apply to text mode and are session-only; original ASS uses bundled DejaVu Sans fallback. Media files are not retained across reloads; reopen the same files to resume. Playlist metadata export is not a playable saved-file grant.
 
 Remote streams require CORS because the media element supports Web Audio. Equalizer UI is restricted to local media. CSS video transforms do not transform original ASS overlays; use default fit/rotation for styled ASS alignment.
 

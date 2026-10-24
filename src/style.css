@@ -29,3 +29,7 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .timeline::-moz-range-track{height:1px;background:#666;border:1px solid #999}
 .timeline::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--yellow)}
 .timeline:disabled{opacity:.45;cursor:default}
+
+.stage.cursor-hidden,.stage.cursor-hidden video{cursor:none}
+
+.bitmap-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:5;object-fit:contain}
