@@ -86,3 +86,12 @@ Replaced per-packet video-clock scheduling with a fixed Web Audio timeline, quar
 Added explicit multichannel-to-stereo matrices with bounded gain/headroom, preserving centre dialogue and left/right surrounds; LFE is omitted in the standard stereo mix. Mono/stereo PCM remains unchanged. The mixer prevents full-scale correlated full-range 5.1 channels from clipping at flat EQ. Positive EQ boosts may still require a lower volume.
 
 53 tests pass, including 1,000 rounded DTS packet times without gaps/overlaps, rates/delays/seek offsets, channel routing, full-scale headroom and an actual AC-3 decoder-to-scheduler integration test verifying contiguous stereo buffer sources. A manual full-fixture comparison of the AC-3 WASM output against desktop FFmpeg produced equal sample counts, approximately 144 dB SNR and maximum absolute error 3.73e-8, indicating the raw decoder is accurate for this generated fixture. This does not constitute a listening check of the user's unavailable movie.
+
+
+## Version 0.6.4 Persian punctuation and ASS direction
+
+57 tests pass. Regression fixtures reproduce the three user screenshots: a leading exclamation mark, two trailing dialogue dashes, and a leading ellipsis. Detection examines all RTL lines in each track to distinguish a legacy visual punctuation convention from ordinary logical text. Clear leading sentence-ending punctuation is corrected directly; ambiguous ellipses and speaker dashes are corrected only with track-level legacy evidence. Decimals, English, correctly stored punctuation, ordinary opening ellipses and forced LTR remain unchanged. Normalization is display-only and exports preserve source cues.
+
+For ASS, direction marks alone were insufficient with VSFilter-compatible LTR/individual-style-run layout. RTL dialogue now enables libass Encoding=-1 whole-text bidi layout and reapplies it after style resets. Vector drawings are untouched. Reference: https://github.com/libass/libass/wiki/Libass%27-ASS-Extensions#encoding-1 .
+
+Chromium preview visually checked all three examples in text mode: exclamation and ellipsis appear to the left, speaker dashes to the right. Original ASS styling also shows the ellipsis to the left and both speaker dashes to the right across bold style changes. Earlier supplied private SRT has abundant legacy evidence (774 lines with leading terminal punctuation and 143 with a trailing speaker dash); it remains outside the repository. The screenshots do not contain the actual new movie subtitle file, so its full contents have not been inspected.

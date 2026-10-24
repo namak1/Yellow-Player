@@ -6,7 +6,7 @@ Open the browser-based player directly to explore and test it—no installation 
 
 > **About this project:** Yellow Player is an independent media player inspired by popular players such as PotPlayer and KMPlayer. It is **not reverse-engineered** from those applications, does not use their proprietary source code, and is not affiliated with their developers.
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.3 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.4 is an early working web release, not full PotPlayer parity.**
 
 ## Screenshots
 
@@ -61,7 +61,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Vivid colors by default, unfiltered Original profile and persistent color adjustments under Preferences → Video. Vivid is a contrast/saturation preference, not calibrated PotPlayer or HDR parity.
 - Fullscreen playback bar appears at the bottom hover area and for keyboard focus; touch devices keep controls visible. Browser fullscreen falls back to filling the window if unavailable.
 - The loaded version is visible in the title bar. Online reloads request fresh HTML; complete service-worker updates activate without waiting for other tabs to close. Open media is not automatically reloaded.
-- Legacy Persian sentence periods stored before the first word are normalized for display in text and ASS, without changing subtitle exports.
+- Legacy Persian punctuation layout is detected per track: leading sentence-ending marks and ellipses move to the sentence end, and trailing speaker dashes move to the dialogue start. Text and styled ASS render with RTL base direction; source cues and exports stay unchanged. Ordinary opening ellipses are preserved unless the track supplies evidence of the legacy layout.
 - Per-line Persian/Arabic RTL punctuation, mixed English lines and an explicit text-direction setting; display corrections also apply to ASS without changing exported cues.
 - Real installed font weights without synthetic bold/italic; crisp subtitle shadow; pure black letterbox/background.
 - SRT/VTT and ASS/SSA. Original ASS styling through libass/WASM; optional customizable text fallback. Secondary track is text-mode.

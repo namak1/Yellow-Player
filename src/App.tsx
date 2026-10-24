@@ -6,7 +6,7 @@ import{timelineDuration,fileDuration}from'./mediaTimeline';
 import{version as appVersion}from'../package.json';
 import SubtitleText from './SubtitleText';
 import{colorProfiles,videoDefaults,videoFilter,colorProfile}from'./videoAppearance';
-import{directionalAss,type SubtitleDirection}from'./subtitleDirection';
+import{directionalAss,hasLegacyPunctuation,type SubtitleDirection}from'./subtitleDirection';
 import {extractEmbeddedSubtitles} from './embeddedSubtitles';
 import {AudioTrackSession,audioChoiceLabel,type AudioChoice} from './audioTracks';
 import FontPicker from './FontPicker';
@@ -45,6 +45,8 @@ export default function App(){
  const manualRatio=aspectRatio(visual.aspect);const manualWidth=manualRatio?Math.min(stageSize.width,stageSize.height*manualRatio):0;
  const videoGeometry:CSSProperties=manualRatio?{width:manualWidth,height:manualWidth/manualRatio,objectFit:'fill'}:{objectFit:visual.fit as CSSProperties['objectFit']};
  const toneValues=useMemo(()=>toneTable(visual),[visual.gamma,visual.toneMapping,visual.exposure,visual.sourcePeak,visual.targetNits]);
+ const primaryLegacy=useMemo(()=>hasLegacyPunctuation(selectedTrack?.cues.map(c=>c.text)||[]),[selectedTrack?.cues]);
+ const secondaryLegacy=useMemo(()=>hasLegacyPunctuation(secondTrack?.cues.map(c=>c.text)||[]),[secondTrack?.cues]);
  const assContent=useMemo(()=>selectedTrack?.content?directionalAss(selectedTrack.content,prefs.subtitleDirection as SubtitleDirection):'',[selectedTrack?.content,prefs.subtitleDirection]);
  const durationHint=useRef({key:'',value:0});
  const updateDuration=()=>{if(video.current)setDuration(timelineDuration(video.current,durationHint.current.key===key?durationHint.current.value:0));};
@@ -120,7 +122,7 @@ export default function App(){
  {active&&subsVisible&&selectedTrack?.bitmap&&<BitmapOverlay cues={selectedTrack.bitmap} time={time} delay={delay} video={video} aspect={manualRatio} onError={notify}/>}
  {active&&subsVisible&&secondTrack?.bitmap&&<BitmapOverlay cues={secondTrack.bitmap} time={time} delay={delays[key+'|'+secondary]||0} video={video} aspect={manualRatio} onError={notify}/>}
  {active&&subsVisible&&assOriginal&&selectedTrack?.fallback&&selectedTrack.content&&<AssOverlay aspect={manualRatio} fonts={embeddedFonts} content={assContent} time={time} delay={delay} video={video} onError={()=>{setAssOriginal(false);notify('Styled renderer failed; using text fallback.');}}/>}
- {active&&<div className="subtitle-layer" style={{bottom:prefs.bottom+'%'}}>{subsVisible&&<><div className="subtitle-text secondary" dir="auto" style={subtitleStyle}>{secondTrack&&<SubtitleText text={displayCues(secondTrack,delays[key+'|'+secondary]||0)} direction={prefs.subtitleDirection as SubtitleDirection}/>}</div><div className="subtitle-text" dir="auto" style={subtitleStyle}>{!(assOriginal&&selectedTrack?.fallback)&&selectedTrack&&<SubtitleText text={displayCues(selectedTrack,delay)} direction={prefs.subtitleDirection as SubtitleDirection}/>}</div></>}</div>}
+ {active&&<div className="subtitle-layer" style={{bottom:prefs.bottom+'%'}}>{subsVisible&&<><div className="subtitle-text secondary" dir="auto" style={subtitleStyle}>{secondTrack&&<SubtitleText legacyPunctuation={secondaryLegacy} text={displayCues(secondTrack,delays[key+'|'+secondary]||0)} direction={prefs.subtitleDirection as SubtitleDirection}/>}</div><div className="subtitle-text" dir="auto" style={subtitleStyle}>{!(assOriginal&&selectedTrack?.fallback)&&selectedTrack&&<SubtitleText legacyPunctuation={primaryLegacy} text={displayCues(selectedTrack,delay)} direction={prefs.subtitleDirection as SubtitleDirection}/>}</div></>}</div>}
  {error&&<div className="error"><Film size={25}/><p>{error}</p><button onClick={()=>fileInput.current?.click()}>Choose another file</button></div>}
 
  {toast&&<div className="toast" role="status">{toast}</div>}
