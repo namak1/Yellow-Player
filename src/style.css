@@ -33,3 +33,5 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .stage.cursor-hidden,.stage.cursor-hidden video{cursor:none}
 
 .bitmap-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:5;object-fit:contain}
+
+.advanced-color-controls{border:0;padding:0;margin:0;min-width:0}.advanced-color-controls:disabled{opacity:.5}

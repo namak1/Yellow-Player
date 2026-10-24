@@ -63,3 +63,8 @@ Chromium preview: `<` and `>` pause and change a 25 fps test video by 40 ms; ext
 Limits: HDR controls process browser-decoded RGB; there is no raw PQ/HLG pipeline, independent HDR metadata detection, or guaranteed native HDR output. Negative audio delay depends on independent browser codec support for local media. Generated-fixture and scheduling tests do not establish perceptual A/V synchronization for all codecs or long movies. Bitmap palette fades/advanced DVD control commands and encrypted/compressed streams are not supported. Bitmap fonts/OCR/text export are unavailable. Safari/macOS runtime behavior has not been tested here.
 
 Format references: [FFmpeg PGS decoder documentation](https://ffmpeg.org/doxygen/trunk/pgssubdec_8c.html) and [FFmpeg DVD subtitle decoder documentation](https://ffmpeg.org/doxygen/trunk/dvdsubdec_8c.html).
+
+
+## Version 0.6.1 color regression
+
+The always-attached SVG transfer filter in 0.6.0 changed the video compositing path even with a mathematical identity curve. Default and existing saved settings now bypass that stage completely. The default CSS filter matches 0.5.6 exactly; Original returns `none`. Advanced processing requires an explicit checkbox and is also bypassed when its values are neutral. Original/Vivid selections turn advanced processing off, and a Restore v0.5.6 colors button resets gamma/exposure/tone mapping. The opt-in SVG uses sRGB interpolation to avoid an unnecessary linear-RGB round trip. Regression coverage checks defaults, old saved advanced settings without the opt-in flag, Original, neutral opt-in, and deliberate non-neutral opt-in. The user's movie is not available for direct before/after comparison.

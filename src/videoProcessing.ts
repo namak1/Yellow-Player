@@ -1,5 +1,6 @@
+import{videoFilter,type VideoColors}from'./videoAppearance';
 export type ToneSettings={gamma:number;toneMapping:string;exposure:number;sourcePeak:number;targetNits:number};
-export const processingDefaults={gamma:1,toneMapping:'browser',exposure:0,sourcePeak:1000,targetNits:203,aspect:'auto'};
+export const processingDefaults={gamma:1,toneMapping:'browser',exposure:0,sourcePeak:1000,targetNits:203,aspect:'auto',advancedColorEnabled:false};
 export const aspectPresets=['auto','16:9','4:3','16:10','21:9','1.85:1','2.35:1','2.39:1','1:1'];
 export function aspectRatio(preset:string){const [a,b]=preset.split(':').map(Number);return a>0&&b>0?a/b:0;}
 export function toneValue(value:number,p:ToneSettings){
@@ -14,3 +15,10 @@ export function toneValue(value:number,p:ToneSettings){
 }
 export function toneTable(p:ToneSettings){return Array.from({length:257},(_,i)=>toneValue(i/256,p).toFixed(6)).join(' ');}
 export function zoomFromWheel(zoom:number,delta:number){return Math.max(50,Math.min(300,zoom+(delta<0?10:-10)));}
+
+/** Keep the v0.5.6 video path byte-for-byte unless advanced processing is explicitly enabled. */
+export function playbackVideoFilter(p:VideoColors&ToneSettings&{advancedColorEnabled?:boolean}){
+ const base=videoFilter(p);
+ if(!p.advancedColorEnabled||(p.gamma===1&&p.exposure===0&&p.toneMapping==='browser'))return base;
+ return [base,'url(#yellow-video-tone)'].filter(f=>f!=='none').join(' ');
+}
