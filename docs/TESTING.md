@@ -68,3 +68,12 @@ Format references: [FFmpeg PGS decoder documentation](https://ffmpeg.org/doxygen
 ## Version 0.6.1 color regression
 
 The always-attached SVG transfer filter in 0.6.0 changed the video compositing path even with a mathematical identity curve. Default and existing saved settings now bypass that stage completely. The default CSS filter matches 0.5.6 exactly; Original returns `none`. Advanced processing requires an explicit checkbox and is also bypassed when its values are neutral. Original/Vivid selections turn advanced processing off, and a Restore v0.5.6 colors button resets gamma/exposure/tone mapping. The opt-in SVG uses sRGB interpolation to avoid an unnecessary linear-RGB round trip. Regression coverage checks defaults, old saved advanced settings without the opt-in flag, Original, neutral opt-in, and deliberate non-neutral opt-in. The user's movie is not available for direct before/after comparison.
+
+
+## Version 0.6.2 software audio fallback
+
+Added official Mediabunny AC-3/E-AC-3 and DTS decoder extensions, pinned to 1.62.1. Audio inspection loads the required local extension before capability detection. Local AC-3/E-AC-3/DTS default tracks are automatically routed through the independent synchronized decoder, with native audio muted only after a decoded sample is ready. The Automatic audio option preserves that fallback when selected again. Browser-native AAC and similar tracks keep the previous path. Native audio-track enumeration no longer prevents local container inspection.
+
+46 automated tests pass, including a native-track-list routing regression. Generated one-second 48 kHz six-channel MKV fixtures for AC-3, E-AC-3, and DTS from the original synthetic video and sine tones. Actual WASM worker tests decode to finite, non-silent six-channel PCM at later positions and after backward seeks. The initial DTS packet includes encoder priming; energy is checked after startup. These checks do not claim every commercial DTS-HD/Atmos/TrueHD variant or every browser is supported.
+
+Chromium preview automatically selects the generated 30-second MKV's AC-3 six-channel track; the track remains selectable and no app decoder error appears. The user's actual Captain Phillips MKV is not available, so its precise bitstream and listening output have not been directly checked. Color processing remains on the v0.5.6-compatible path.

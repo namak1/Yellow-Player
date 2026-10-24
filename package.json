@@ -1,6 +1,6 @@
 {
   "name": "yellow-player",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,6 +12,8 @@
     "native:build": "tauri build --no-bundle"
   },
   "dependencies": {
+    "@mediabunny/ac3": "^1.62.1",
+    "@mediabunny/dts": "^1.62.1",
     "@tauri-apps/api": "^2.12.4",
     "@tauri-apps/plugin-dialog": "^2.8.3",
     "libass-wasm": "^4.1.0",

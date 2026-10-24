@@ -1,0 +1,17 @@
+Yellow Player audio decoder notices
+
+@mediabunny/ac3 and @mediabunny/dts, version 1.62.1
+Copyright (c) 2026-present, Vanilagy and contributors.
+JavaScript/TypeScript wrapper source: Mozilla Public License 2.0.
+Source and build instructions:
+https://github.com/Vanilagy/mediabunny/tree/v1.62.1/packages/ac3
+https://github.com/Vanilagy/mediabunny/tree/v1.62.1/packages/dts
+Published package sources and artifacts:
+https://www.npmjs.com/package/@mediabunny/ac3/v/1.62.1
+https://www.npmjs.com/package/@mediabunny/dts/v/1.62.1
+
+The decoder workers contain FFmpeg libavcodec/libavutil WebAssembly, built with the LGPL configuration described in the upstream package READMEs.
+FFmpeg copyright its respective contributors; GNU Lesser General Public License 2.1 or later.
+FFmpeg sources: https://ffmpeg.org/download.html and https://github.com/FFmpeg/FFmpeg
+FFmpeg license: https://ffmpeg.org/legal.html
+No changes have been made to the upstream decoder packages.
