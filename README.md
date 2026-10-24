@@ -6,7 +6,7 @@ Open the browser-based player directly to explore and test it—no installation 
 
 > **About this project:** Yellow Player is an independent media player inspired by popular players such as PotPlayer and KMPlayer. It is **not reverse-engineered** from those applications, does not use their proprietary source code, and is not affiliated with their developers.
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.2 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.3 is an early working web release, not full PotPlayer parity.**
 
 ## Screenshots
 
@@ -72,6 +72,7 @@ Alternatively, serve the included `dist/` directory with a local HTTP server (`p
 - Manual aspect presets, gamma, exposure, and Reinhard/Hable/ACES display curves under Preferences → Video. Advanced gamma/tone processing is explicitly opt-in and bypassed by default to preserve v0.5.6 colors. The Restore v0.5.6 colors button resets it. These controls process browser-decoded pixels; the browser retains control over HDR decoding/tone mapping. Source-peak and target-white controls cannot restore highlights already clipped by the browser.
 - Audio delay from −10 to +10 seconds under Preferences → Audio. Positive delay uses Web Audio for browser audio; negative delay requires a locally decodable audio codec and uses synchronized independent decoding. Unsupported requests preserve playback and report the limitation.
 - Bitmap subtitle timing and track selection are supported; bitmap font changes, OCR/text editing, DVD menu/high-definition SPU commands, encrypted/compressed streams, and palette fades are not implemented. External VobSub requires both matching files; individual SPUs are bounded to 1 MB, total bitmap input to 32 MB.
+- Continuous buffered audio scheduling uses a single playback clock and corrects millisecond-rounded packet timestamps. Multichannel software audio uses an explicit stereo downmix with headroom to avoid clipping while retaining dialogue and surrounds (the dedicated LFE channel is omitted).
 - Automatic software audio fallback for AC-3, E-AC-3, and DTS, including six-channel tracks in local MKV files. Decoder workers/WASM are bundled with the app and cached for offline use; no media upload or server conversion is involved. AAC/MP3/Opus/Vorbis/FLAC use available browser decoders, while PCM uses the built-in decoder. Universal audio codec coverage (including TrueHD/Atmos, WMA, ALAC, APE, encrypted tracks or every DTS-HD profile) is not guaranteed.
 - Local-media 10-band equalizer and two presets; visual color adjustments, rotation, flip, zoom/fit/crop and frame capture.
 - Dark/light themes, keyboard shortcuts, context menu, PWA manifest, generated offline asset cache.

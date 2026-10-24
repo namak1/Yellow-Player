@@ -1,3 +1,4 @@
+import{AudioClock,stereoAudioBuffer}from'./audioPlayback';
 import{ensureAudioDecoder,needsSoftwareAudio}from'./audioDecoders';
 import{Input,BlobSource,ALL_FORMATS,AudioBufferSink,type InputAudioTrack,type WrappedAudioBuffer}from'mediabunny';
 import{type Equalizer}from'./engine';
@@ -10,14 +11,29 @@ export function selectNativeTrack(list:NativeAudioList,index:number){if(!Number.
 /** Return a WebAudio start time and offset, or null for an expired buffer. */
 export function audioSchedule(timestamp:number,duration:number,mediaTime:number,contextTime:number,rate:number,delay=0){timestamp+=delay;if(duration<=0||rate<=0||timestamp+duration<=mediaTime)return null;const offset=Math.max(0,mediaTime-timestamp);return{when:contextTime+Math.max(0,timestamp-mediaTime)/rate,offset,duration:duration-offset};}
 export class SyncedAudio{
- private sink:AudioBufferSink;private generation=0;private iterator:AsyncGenerator<WrappedAudioBuffer,void,unknown>|null=null;private sources=new Set<AudioBufferSourceNode>();private timer:ReturnType<typeof setInterval>;private disposed=false;private anchor:{media:number;context:number;rate:number}|null=null;
+ private sink:AudioBufferSink;private generation=0;private iterator:AsyncGenerator<WrappedAudioBuffer,void,unknown>|null=null;private sources=new Set<AudioBufferSourceNode>();private timer:ReturnType<typeof setInterval>;private disposed=false;private anchor:AudioClock|null=null;
  private restart=()=>{this.cancel();if(this.disposed||this.media.paused||this.media.seeking||this.media.readyState<3)return;const gen=this.generation;void this.run(gen).catch(e=>{if(gen===this.generation&&!this.disposed){this.cancel();this.onError(e);}});};
  private stop=()=>this.cancel();
- constructor(track:InputAudioTrack,private media:HTMLVideoElement,private graph:Equalizer,private onError:(error:unknown)=>void,private delay=0){this.sink=new AudioBufferSink(track);for(const name of ['playing','seeked','ratechange'])media.addEventListener(name,this.restart);for(const name of ['pause','waiting','seeking','ended'])media.addEventListener(name,this.stop);this.timer=setInterval(()=>{const a=this.anchor;if(!a||media.paused||media.seeking)return;const expected=a.media+(graph.context.currentTime-a.context)*a.rate;if(Math.abs(expected-media.currentTime)>.15)this.restart();},150);this.restart();}
+ constructor(track:InputAudioTrack,private media:HTMLVideoElement,private graph:Equalizer,private onError:(error:unknown)=>void,private delay=0){this.sink=new AudioBufferSink(track);for(const name of ['playing','seeked','ratechange'])media.addEventListener(name,this.restart);for(const name of ['pause','waiting','seeking','ended'])media.addEventListener(name,this.stop);this.timer=setInterval(()=>{const a=this.anchor;if(!a||media.paused||media.seeking)return;const expected=a.mediaAt(graph.context.currentTime);if(Math.abs(expected-media.currentTime)>.25)this.restart();},150);this.restart();}
  private cancel(){this.generation++;this.anchor=null;const iterator=this.iterator;this.iterator=null;if(iterator)void iterator.return().catch(()=>{});for(const source of this.sources){try{source.stop();}catch{}source.disconnect();}this.sources.clear();}
- private async run(gen:number){await this.graph.context.resume();if(gen!==this.generation)return;const iterator=this.sink.buffers(Math.max(0,this.media.currentTime-this.delay));this.iterator=iterator;const rate=this.media.playbackRate;this.anchor={media:this.media.currentTime,context:this.graph.context.currentTime,rate};
- try{while(gen===this.generation){const next=await iterator.next();if(gen!==this.generation||next.done)break;const chunk=next.value;while(gen===this.generation&&chunk.timestamp+this.delay-this.media.currentTime>.65*rate)await new Promise(resolve=>setTimeout(resolve,35));if(gen!==this.generation)break;const plan=audioSchedule(chunk.timestamp,chunk.duration,this.media.currentTime,this.graph.context.currentTime,rate,this.delay);if(!plan)continue;const node=this.graph.context.createBufferSource();node.buffer=chunk.buffer;node.playbackRate.value=rate;node.connect(this.graph.input);this.sources.add(node);node.onended=()=>{this.sources.delete(node);node.disconnect();};node.start(plan.when,plan.offset,plan.duration);}
- }finally{await iterator.return();if(this.iterator===iterator)this.iterator=null;}}
+ private async run(gen:number){
+ await this.graph.context.resume();if(gen!==this.generation)return;
+ const iterator=this.sink.buffers(Math.max(0,this.media.currentTime-this.delay));this.iterator=iterator;const rate=this.media.playbackRate;const pending:WrappedAudioBuffer[]=[];
+ try{
+  // Decode ahead before starting the clock. This leaves room for worker/main-thread jitter.
+  while(gen===this.generation){const next=await iterator.next();if(next.done)break;pending.push(next.value);if(next.value.timestamp+next.value.buffer.duration+this.delay>=this.media.currentTime+.25*rate||pending.length>=64)break;}
+  if(gen!==this.generation||!pending.length)return;
+  const lead=.08;const clock=new AudioClock(this.media.currentTime+lead*rate,this.graph.context.currentTime+lead,rate,this.delay);this.anchor=clock;
+  while(gen===this.generation){const chunk=pending.shift()||(await iterator.next()).value;if(gen!==this.generation||!chunk)break;
+   const buffer=stereoAudioBuffer(chunk.buffer,this.graph.context);const plan=clock.plan(chunk.timestamp,buffer.duration);if(!plan)continue;
+   while(gen===this.generation&&plan.when-this.graph.context.currentTime>1)await new Promise(resolve=>setTimeout(resolve,25));if(gen!==this.generation)break;
+   // A genuine underrun needs a fresh buffered segment, not overlapping late packets.
+   if(plan.when<this.graph.context.currentTime+.002){this.restart();return;}
+   const node=this.graph.context.createBufferSource();node.buffer=buffer;node.playbackRate.value=rate;node.connect(this.graph.input);this.sources.add(node);node.onended=()=>{this.sources.delete(node);node.disconnect();};node.start(plan.when,plan.offset,plan.duration);
+  }
+ }finally{await iterator.return();if(this.iterator===iterator)this.iterator=null;}
+ }
+
  dispose(){this.disposed=true;this.cancel();clearInterval(this.timer);for(const name of ['playing','seeked','ratechange'])this.media.removeEventListener(name,this.restart);for(const name of ['pause','waiting','seeking','ended'])this.media.removeEventListener(name,this.stop);}
 }
 export class AudioTrackSession{

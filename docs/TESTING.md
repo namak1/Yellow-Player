@@ -77,3 +77,12 @@ Added official Mediabunny AC-3/E-AC-3 and DTS decoder extensions, pinned to 1.62
 46 automated tests pass, including a native-track-list routing regression. Generated one-second 48 kHz six-channel MKV fixtures for AC-3, E-AC-3, and DTS from the original synthetic video and sine tones. Actual WASM worker tests decode to finite, non-silent six-channel PCM at later positions and after backward seeks. The initial DTS packet includes encoder priming; energy is checked after startup. These checks do not claim every commercial DTS-HD/Atmos/TrueHD variant or every browser is supported.
 
 Chromium preview automatically selects the generated 30-second MKV's AC-3 six-channel track; the track remains selectable and no app decoder error appears. The user's actual Captain Phillips MKV is not available, so its precise bitstream and listening output have not been directly checked. Color processing remains on the v0.5.6-compatible path.
+
+
+## Version 0.6.3 AC-3 quality correction
+
+Replaced per-packet video-clock scheduling with a fixed Web Audio timeline, quarter-second initial decode buffering, 80 ms scheduling lead, one-second lookahead and real-underrun recovery. Adjacent packet times within 8 ms are aligned by actual PCM frame duration so millisecond container timestamp rounding cannot introduce repeated gaps/overlaps. Larger discontinuities are preserved.
+
+Added explicit multichannel-to-stereo matrices with bounded gain/headroom, preserving centre dialogue and left/right surrounds; LFE is omitted in the standard stereo mix. Mono/stereo PCM remains unchanged. The mixer prevents full-scale correlated full-range 5.1 channels from clipping at flat EQ. Positive EQ boosts may still require a lower volume.
+
+53 tests pass, including 1,000 rounded DTS packet times without gaps/overlaps, rates/delays/seek offsets, channel routing, full-scale headroom and an actual AC-3 decoder-to-scheduler integration test verifying contiguous stereo buffer sources. A manual full-fixture comparison of the AC-3 WASM output against desktop FFmpeg produced equal sample counts, approximately 144 dB SNR and maximum absolute error 3.73e-8, indicating the raw decoder is accurate for this generated fixture. This does not constitute a listening check of the user's unavailable movie.
