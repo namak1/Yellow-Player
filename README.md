@@ -6,7 +6,7 @@ Open the browser-based player directly to explore and test it—no installation 
 
 > **About this project:** Yellow Player is an independent media player inspired by popular players such as PotPlayer and KMPlayer. It is **not reverse-engineered** from those applications, does not use their proprietary source code, and is not affiliated with their developers.
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.4 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.5 is an early working web release, not full PotPlayer parity.**
 
 ## Screenshots
 
@@ -109,3 +109,5 @@ See `docs/RESEARCH_SOURCES.md`, `docs/POTPLAYER_FEATURE_INVENTORY.md`, `docs/FEA
 ## Licensing
 
 Original application code: MIT. PotPlayer is proprietary; no proprietary code/assets are included. Third-party notices are in `THIRD_PARTY_NOTICES.md` and `public/libass/`. mpv/FFmpeg are not bundled. Their licensing depends on exact build configuration and must be checked before native distribution.
+
+Playback bar: repeat cycles **off → one → all**. Shuffle visits every queued file once; repeat-all starts another shuffled cycle. Previous/Next retrace shuffled playback history.

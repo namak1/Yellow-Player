@@ -37,3 +37,8 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .advanced-color-controls{border:0;padding:0;margin:0;min-width:0}.advanced-color-controls:disabled{opacity:.5}
 
 .subtitle-line[dir="rtl"]{direction:rtl;unicode-bidi:isolate}.subtitle-line[dir="ltr"]{direction:ltr;unicode-bidi:isolate}
+
+.controls .playback-mode{position:relative;color:var(--muted)}
+.controls .playback-mode.selected{color:var(--yellow);background:#e4da0012}
+.playback-mode small{position:absolute;bottom:1px;right:3px;font-size:8px;line-height:9px}
+@media(max-width:540px){.desktop-player .controls{height:auto;min-height:38px;flex-wrap:wrap}.controls .transport-left{height:38px}.controls .time-display{min-width:145px;height:38px}.controls .transport-right{height:32px;margin-left:auto}}
