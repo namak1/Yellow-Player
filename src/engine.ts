@@ -1,9 +1,9 @@
 import{timelineDuration}from'./mediaTimeline';
 export interface PlaybackEngine {play():Promise<void>;pause():void;seek(seconds:number):void;setRate(rate:number):void;stop():void;}
 export class BrowserEngine implements PlaybackEngine{
- constructor(public media:HTMLVideoElement,private durationHint=0){}
+ constructor(public media:HTMLVideoElement,private durationHint=0,private seekTarget=(seconds:number)=>seconds){}
  play(){return this.media.play();} pause(){this.media.pause();}
- seek(seconds:number){if(!Number.isFinite(seconds))return;const duration=timelineDuration(this.media,this.durationHint);if(duration>0)this.media.currentTime=Math.min(duration,Math.max(0,seconds));else if(this.media.readyState>=1)this.media.currentTime=Math.max(0,seconds);}
+ seek(seconds:number){if(!Number.isFinite(seconds))return;const duration=timelineDuration(this.media,this.durationHint);seconds=this.seekTarget(Math.max(0,seconds));if(!Number.isFinite(seconds))return;if(duration>0)this.media.currentTime=Math.min(duration,Math.max(0,seconds));else if(this.media.readyState>=1)this.media.currentTime=Math.max(0,seconds);}
  setRate(rate:number){this.media.playbackRate=Math.max(.25,Math.min(4,rate));this.media.preservesPitch=true;}
  stop(){this.pause();this.seek(0);}
 }

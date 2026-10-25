@@ -95,3 +95,9 @@ Added explicit multichannel-to-stereo matrices with bounded gain/headroom, prese
 For ASS, direction marks alone were insufficient with VSFilter-compatible LTR/individual-style-run layout. RTL dialogue now enables libass Encoding=-1 whole-text bidi layout and reapplies it after style resets. Vector drawings are untouched. Reference: https://github.com/libass/libass/wiki/Libass%27-ASS-Extensions#encoding-1 .
 
 Chromium preview visually checked all three examples in text mode: exclamation and ellipsis appear to the left, speaker dashes to the right. Original ASS styling also shows the ellipsis to the left and both speaker dashes to the right across bold style changes. Earlier supplied private SRT has abundant legacy evidence (774 lines with leading terminal punctuation and 143 with a trailing speaker dash); it remains outside the repository. The screenshots do not contain the actual new movie subtitle file, so its full contents have not been inspected.
+
+## Skip ranges (v0.6.6)
+
+Automated checks cover timestamp parsing (including the 1:50:49 / 0:20:10–0:22:15 example), invalid input, duration bounds, merged overlaps, master/individual toggles, saved settings, and BrowserEngine seek mapping at file boundaries.
+
+Browser checks used original generated black test clips: a 30-second clip for multiple jumps and a 1:50:49 clip for the requested interval. Verified automatic playback skipping, seeking into each excluded interval, editing, removal, per-file isolation, and persistence after page reload and reopening. Skip ranges are local metadata; they do not edit or export the media file.
