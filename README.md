@@ -6,7 +6,7 @@ Open the browser-based player directly to explore and test it—no installation 
 
 > **About this project:** Yellow Player is an independent media player inspired by popular players such as PotPlayer and KMPlayer. It is **not reverse-engineered** from those applications, does not use their proprietary source code, and is not affiliated with their developers.
 
-A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.6 is an early working web release, not full PotPlayer parity.**
+A real local-first React/TypeScript media player with an original graphite-and-yellow interface. **Version 0.6.7 is an early working web release, not full PotPlayer parity.**
 
 ## Screenshots
 
@@ -113,3 +113,5 @@ Original application code: MIT. PotPlayer is proprietary; no proprietary code/as
 Playback bar: repeat cycles **off → one → all**. Shuffle visits every queued file once; repeat-all starts another shuffled cycle. Previous/Next retrace shuffled playback history.
 
 Use the **scissors icon → Skip ranges** to exclude multiple sections of a video (for example, `0:20:10` to `0:22:15`). Add, edit, remove, or enable individual ranges; the master switch temporarily disables skipping. Ranges are saved per video on your device and apply during playback and seeking. The video file is unchanged.
+
+The **«15 / 15»** playback buttons jump backward/forward 15 seconds. Speed shortcuts: **C** increases by 0.25×, **X** decreases by 0.25×, and **Z** restores 1× (range 0.25–4×). Skip ranges also accept milliseconds, e.g. `0:20:10:200` to `0:22:15:400`; the list and editor retain all three millisecond digits.

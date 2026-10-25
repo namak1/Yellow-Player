@@ -101,3 +101,9 @@ Chromium preview visually checked all three examples in text mode: exclamation a
 Automated checks cover timestamp parsing (including the 1:50:49 / 0:20:10–0:22:15 example), invalid input, duration bounds, merged overlaps, master/individual toggles, saved settings, and BrowserEngine seek mapping at file boundaries.
 
 Browser checks used original generated black test clips: a 30-second clip for multiple jumps and a 1:50:49 clip for the requested interval. Verified automatic playback skipping, seeking into each excluded interval, editing, removal, per-file isolation, and persistence after page reload and reopening. Skip ranges are local metadata; they do not edit or export the media file.
+
+## Jump buttons, speed shortcuts and millisecond skips (v0.6.7)
+
+Verified in the browser: forward jump from 00:30 to 00:45 and back to 00:30 while staying paused; C changes native playbackRate from 1 to 1.25, X returns to 1, and uppercase C/Z also work. The speed toast reports the selected rate.
+
+Skip editor accepts 0:20:10:200–0:22:15:400, preserves the values when editing, and seeks from 1210.25 to 1335.4 seconds. Automated tests cover exact fractional boundaries, millisecond formatting/parsing, rollover, and invalid millisecond fields. Existing whole-second and decimal-second inputs remain supported. Actual video presentation remains limited by the source frame cadence and browser seeking.

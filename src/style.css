@@ -46,3 +46,7 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .skip-ranges fieldset{border:0;padding:0;margin:0;min-width:0}.skip-file{font-weight:600;overflow-wrap:anywhere;margin-top:0}.skip-inputs{display:flex;align-items:center;gap:12px}.skip-inputs label{flex:1;min-width:0}.skip-inputs input{display:block;width:100%;font-variant-numeric:tabular-nums}.skip-inputs button{margin-top:6px;font-size:10px}.skip-list{margin-top:20px}.skip-range{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding:7px 0;flex-wrap:wrap}.skip-range .check{flex:1;white-space:nowrap;margin:5px 0;font-variant-numeric:tabular-nums}.controls .icon.selected{color:var(--yellow)}
 
 .skip-ranges .check input{width:auto;margin:0;flex:none}.skip-ranges .check{justify-content:flex-start}
+
+.controls .jump-button{position:relative}.jump-button small{position:absolute;bottom:1px;right:3px;font-size:8px;line-height:9px;color:var(--muted)}
+@media(min-width:541px) and (max-width:700px){.desktop-player .controls{height:auto;min-height:38px;flex-wrap:wrap}.controls .transport-left{height:38px}.controls .time-display{min-width:145px;height:38px}.controls .transport-right{height:32px;margin-left:auto}}
+@media(max-width:400px){.skip-range .check{flex-basis:100%}}
