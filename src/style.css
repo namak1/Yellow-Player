@@ -50,3 +50,5 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .controls .jump-button{position:relative}.jump-button small{position:absolute;bottom:1px;right:3px;font-size:8px;line-height:9px;color:var(--muted)}
 @media(min-width:541px) and (max-width:700px){.desktop-player .controls{height:auto;min-height:38px;flex-wrap:wrap}.controls .transport-left{height:38px}.controls .time-display{min-width:145px;height:38px}.controls .transport-right{height:32px;margin-left:auto}}
 @media(max-width:400px){.skip-range .check{flex-basis:100%}}
+
+.transport-right .icon.skip-toggle{color:var(--muted)}.transport-right .icon.skip-toggle.selected{color:var(--yellow)}
