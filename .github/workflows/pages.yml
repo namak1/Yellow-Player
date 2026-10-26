@@ -23,6 +23,14 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:dialogs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dialog-ui-check
+          path: artifacts
+          if-no-files-found: ignore
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

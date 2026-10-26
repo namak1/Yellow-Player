@@ -52,3 +52,11 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 @media(max-width:400px){.skip-range .check{flex-basis:100%}}
 
 .transport-right .icon.skip-toggle{color:var(--muted)}.transport-right .icon.skip-toggle.selected{color:var(--yellow)}
+
+/* Floating dialogs retain their own position, including in fullscreen. */
+.desktop-player .modal.movable-dialog{position:absolute;margin:0;max-width:calc(100% - 12px);max-height:min(92dvh,calc(100% - 12px))}
+.dialog-drag-handle{cursor:grab;touch-action:none;user-select:none;flex-shrink:0}
+.dialog-drag-handle.dragging{cursor:grabbing}
+.dialog-drag-handle:focus-visible{outline:1px solid var(--yellow);outline-offset:-2px}
+.dialog-drag-handle button{cursor:pointer;touch-action:manipulation}
+.movable-dialog .preferences-layout{min-height:0;flex:1}
