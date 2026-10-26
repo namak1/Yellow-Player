@@ -116,4 +116,6 @@ Use the **scissors icon → Skip ranges** to exclude multiple sections of a vide
 
 The **«15 / 15»** playback buttons jump backward/forward 15 seconds. Speed shortcuts: **C** increases by 0.25×, **X** decreases by 0.25×, and **Z** restores 1× (range 0.25–4×). Skip ranges also accept milliseconds, e.g. `0:20:10:200` to `0:22:15:400`; the list and editor retain all three millisecond digits.
 
-Video gestures: single-click does nothing; double-click pauses/resumes. Enter, Ctrl+Enter, or Alt+Enter toggles fullscreen (outside text fields and dialogs).
+Floating dialogs (Preferences, Subtitle Browser, Skip Ranges, and other dialogs) can be moved by dragging their title bars. Each remembers its own position on this device. Double-click a title bar to center it; focus the title bar and use arrow keys for keyboard movement (Shift for fine movement). Positions stay within the player viewport after resizing or changing fullscreen.
+
+Single-click video does nothing; double-click pauses/resumes. Enter, Ctrl+Enter, and Alt+Enter toggle fullscreen outside text fields and dialogs.
