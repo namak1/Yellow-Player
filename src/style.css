@@ -24,9 +24,9 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 
 /* Keep a thin timeline with a larger click and drag target. */
 .desktop-player input.timeline{appearance:none;height:16px;border:0;background:transparent;touch-action:none}
-.timeline::-webkit-slider-runnable-track{height:3px;background:#666;border:1px solid #999}
+.timeline::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--played,0%),#555 var(--played,0%),#555 100%);border:0}
 .timeline::-webkit-slider-thumb{appearance:none;width:14px;height:14px;margin-top:-6.5px;border:0;border-radius:50%;background:var(--yellow)}
-.timeline::-moz-range-track{height:1px;background:#666;border:1px solid #999}
+.timeline::-moz-range-track{height:3px;background:#555;border:0}\n.timeline::-moz-range-progress{height:3px;background:var(--yellow);border:0}
 .timeline::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--yellow)}
 .timeline:disabled{opacity:.45;cursor:default}
 
