@@ -107,3 +107,9 @@ Browser checks used original generated black test clips: a 30-second clip for mu
 Verified in the browser: forward jump from 00:30 to 00:45 and back to 00:30 while staying paused; C changes native playbackRate from 1 to 1.25, X returns to 1, and uppercase C/Z also work. The speed toast reports the selected rate.
 
 Skip editor accepts 0:20:10:200–0:22:15:400, preserves the values when editing, and seeks from 1210.25 to 1335.4 seconds. Automated tests cover exact fractional boundaries, millisecond formatting/parsing, rollover, and invalid millisecond fields. Existing whole-second and decimal-second inputs remain supported. Actual video presentation remains limited by the source frame cadence and browser seeking.
+
+## Network software audio (v0.6.12)
+
+URL playback now passes the URL to AudioTrackSession and uses Mediabunny UrlSource with a 32 MiB cache and bounded retries. Local BlobSource behavior is preserved. Network tracks use existing AC-3/E-AC-3/DTS software decoders and the same synchronized audio route as local files.
+
+Tests serve generated AC-3, E-AC-3 and DTS six-channel MKV fixtures through an HTTP Range server. All tracks are discovered, selected by automatic routing, and decode finite, non-silent PCM after forward/backward seeks. Connection failures reject inspection. The supplied movie URL redirected to a CDN returning HTTP 503 during inspection; its actual codec and playback could not be verified. Browser CORS permission and server availability remain necessary.
