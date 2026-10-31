@@ -24,9 +24,10 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 
 /* Keep a thin timeline with a larger click and drag target. */
 .desktop-player input.timeline{appearance:none;height:16px;border:0;background:transparent;touch-action:none}
-.timeline::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--played,0%),#555 var(--played,0%),#555 100%);border:0}
+.timeline::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--played,0%),transparent var(--played,0%),transparent 100%),var(--buffered,#555);border:0}
 .timeline::-webkit-slider-thumb{appearance:none;width:14px;height:14px;margin-top:-6.5px;border:0;border-radius:50%;background:var(--yellow)}
-.timeline::-moz-range-track{height:3px;background:#555;border:0}\n.timeline::-moz-range-progress{height:3px;background:var(--yellow);border:0}
+.timeline::-moz-range-track{height:3px;background:var(--buffered,#555);border:0}
+.timeline::-moz-range-progress{height:3px;background:var(--yellow);border:0}
 .timeline::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--yellow)}
 .timeline:disabled{opacity:.45;cursor:default}
 
@@ -60,3 +61,5 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 .dialog-drag-handle:focus-visible{outline:1px solid var(--yellow);outline-offset:-2px}
 .dialog-drag-handle button{cursor:pointer;touch-action:manipulation}
 .movable-dialog .preferences-layout{min-height:0;flex:1}
+
+.buffering-indicator{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;display:flex;align-items:center;gap:9px;padding:9px 13px;background:#000b;color:#fff;border-radius:3px;pointer-events:none;font-size:12px}.buffering-indicator span{width:15px;height:15px;border:2px solid #777;border-top-color:var(--yellow);border-radius:50%;animation:buffer-spin .8s linear infinite}@keyframes buffer-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.buffering-indicator span{animation:none}}

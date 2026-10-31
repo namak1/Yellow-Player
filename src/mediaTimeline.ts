@@ -13,3 +13,17 @@ export async function fileDuration(file:Blob,signal:AbortSignal){
  try{if(signal.aborted)return 0;const duration=await input.getDurationFromMetadata();return duration&&Number.isFinite(duration)&&duration>0?duration:0;}
  finally{signal.removeEventListener('abort',cancel);input.dispose();}
 }
+
+// Preserve gaps after seeking; a stream may have several separate buffered ranges.
+export function bufferedGradient(ranges:TimeRanges,duration:number){
+ if(!Number.isFinite(duration)||duration<=0||!ranges.length)return '#555';
+ const stops:string[]=['#555 0%'];
+ for(let i=0;i<ranges.length;i++){
+  const start=Math.max(0,Math.min(100,ranges.start(i)/duration*100));
+  const end=Math.max(0,Math.min(100,ranges.end(i)/duration*100));
+  if(!Number.isFinite(start)||!Number.isFinite(end)||end<=start)continue;
+  stops.push(`#555 ${start}%`,`#999 ${start}%`,`#999 ${end}%`,`#555 ${end}%`);
+ }
+ stops.push('#555 100%');
+ return `linear-gradient(to right,${stops.join(',')})`;
+}

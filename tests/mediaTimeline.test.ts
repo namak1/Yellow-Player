@@ -1,4 +1,4 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{timelineDuration,fileDuration}from'../src/mediaTimeline';import{BrowserEngine}from'../src/engine';
+import{test}from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{timelineDuration,fileDuration,bufferedGradient}from'../src/mediaTimeline';import{BrowserEngine}from'../src/engine';
 const ranges=(end:number)=>({length:1,start:()=>0,end:()=>end})as TimeRanges;
 test('late native duration supersedes file estimate; unknown duration uses container or seekable range',()=>{
  assert.equal(timelineDuration({duration:30,seekable:ranges(10)},29),30);
@@ -14,4 +14,11 @@ test('seek works with unknown browser duration and container metadata, including
 test('local container duration is readable independently of browser metadata',async()=>{
  const file=new Blob([await readFile(new URL('./fixtures/embedded.mkv',import.meta.url))]);
  const duration=await fileDuration(file,new AbortController().signal);assert.ok(duration>0&&Number.isFinite(duration));
+});
+
+test('buffered timeline shows separate ranges and clamps them to the duration',()=>{
+ const buffered={length:2,start:(i:number)=>[0,70][i],end:(i:number)=>[30,120][i]} as TimeRanges;
+ assert.equal(bufferedGradient(buffered,100),'linear-gradient(to right,#555 0%,#555 0%,#999 0%,#999 30%,#555 30%,#555 70%,#999 70%,#999 100%,#555 100%,#555 100%)');
+ assert.equal(bufferedGradient(buffered,0),'#555');
+ assert.equal(bufferedGradient({length:0} as TimeRanges,100),'#555');
 });
