@@ -18,7 +18,7 @@ test('local container duration is readable independently of browser metadata',as
 
 test('buffered timeline shows separate ranges and clamps them to the duration',()=>{
  const buffered={length:2,start:(i:number)=>[0,70][i],end:(i:number)=>[30,120][i]} as TimeRanges;
- assert.equal(bufferedGradient(buffered,100),'linear-gradient(to right,#555 0%,#555 0%,#999 0%,#999 30%,#555 30%,#555 70%,#999 70%,#999 100%,#555 100%,#555 100%)');
+ assert.equal(bufferedGradient(buffered,100),'linear-gradient(to right,#555 0%,#555 0%,#38bdf8 0%,#38bdf8 30%,#555 30%,#555 70%,#38bdf8 70%,#38bdf8 100%,#555 100%,#555 100%)');
  assert.equal(bufferedGradient(buffered,0),'#555');
  assert.equal(bufferedGradient({length:0} as TimeRanges,100),'#555');
 });

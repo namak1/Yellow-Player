@@ -22,7 +22,7 @@ export function bufferedGradient(ranges:TimeRanges,duration:number){
   const start=Math.max(0,Math.min(100,ranges.start(i)/duration*100));
   const end=Math.max(0,Math.min(100,ranges.end(i)/duration*100));
   if(!Number.isFinite(start)||!Number.isFinite(end)||end<=start)continue;
-  stops.push(`#555 ${start}%`,`#999 ${start}%`,`#999 ${end}%`,`#555 ${end}%`);
+  stops.push(`#555 ${start}%`,`#38bdf8 ${start}%`,`#38bdf8 ${end}%`,`#555 ${end}%`);
  }
  stops.push('#555 100%');
  return `linear-gradient(to right,${stops.join(',')})`;

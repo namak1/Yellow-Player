@@ -24,10 +24,10 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 
 /* Keep a thin timeline with a larger click and drag target. */
 .desktop-player input.timeline{appearance:none;height:16px;border:0;background:transparent;touch-action:none}
-.timeline::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--played,0%),transparent var(--played,0%),transparent 100%),var(--buffered,#555);border:0}
-.timeline::-webkit-slider-thumb{appearance:none;width:14px;height:14px;margin-top:-6.5px;border:0;border-radius:50%;background:var(--yellow)}
-.timeline::-moz-range-track{height:3px;background:var(--buffered,#555);border:0}
-.timeline::-moz-range-progress{height:3px;background:var(--yellow);border:0}
+.timeline::-webkit-slider-runnable-track{height:5px;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--played,0%),transparent var(--played,0%),transparent 100%),var(--buffered,#555);border:0}
+.timeline::-webkit-slider-thumb{appearance:none;width:14px;height:14px;margin-top:-5.5px;border:0;border-radius:50%;background:var(--yellow)}
+.timeline::-moz-range-track{height:5px;background:var(--buffered,#555);border:0}
+.timeline::-moz-range-progress{height:5px;background:var(--yellow);border:0}
 .timeline::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--yellow)}
 .timeline:disabled{opacity:.45;cursor:default}
 
