@@ -1,4 +1,4 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{timelineDuration,fileDuration,bufferedGradient}from'../src/mediaTimeline';import{BrowserEngine}from'../src/engine';
+import{test}from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import{timelineDuration,fileDuration,bufferedGradient,bufferedAhead}from'../src/mediaTimeline';import{BrowserEngine}from'../src/engine';
 const ranges=(end:number)=>({length:1,start:()=>0,end:()=>end})as TimeRanges;
 test('late native duration supersedes file estimate; unknown duration uses container or seekable range',()=>{
  assert.equal(timelineDuration({duration:30,seekable:ranges(10)},29),30);
@@ -21,4 +21,12 @@ test('buffered timeline shows separate ranges and clamps them to the duration',(
  assert.equal(bufferedGradient(buffered,100),'linear-gradient(to right,#555 0%,#555 0%,#38bdf8 0%,#38bdf8 30%,#555 30%,#555 70%,#38bdf8 70%,#38bdf8 100%,#555 100%,#555 100%)');
  assert.equal(bufferedGradient(buffered,0),'#555');
  assert.equal(bufferedGradient({length:0} as TimeRanges,100),'#555');
+});
+
+test('buffered ahead follows the playhead and does not count separate ranges',()=>{
+ const buffered={length:2,start:(i:number)=>[0,70][i],end:(i:number)=>[30,90][i]} as TimeRanges;
+ assert.equal(bufferedAhead(buffered,10),20);
+ assert.equal(bufferedAhead(buffered,50),0);
+ assert.equal(bufferedAhead(buffered,75),15);
+ assert.equal(bufferedAhead(buffered,NaN),0);
 });

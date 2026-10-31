@@ -27,3 +27,12 @@ export function bufferedGradient(ranges:TimeRanges,duration:number){
  stops.push('#555 100%');
  return `linear-gradient(to right,${stops.join(',')})`;
 }
+
+// Report only the contiguous buffered interval at the current position.
+export function bufferedAhead(ranges:TimeRanges,time:number){
+ if(!Number.isFinite(time))return 0;
+ for(let i=0;i<ranges.length;i++){
+  if(time>=ranges.start(i)&&time<=ranges.end(i))return Math.max(0,ranges.end(i)-time);
+ }
+ return 0;
+}

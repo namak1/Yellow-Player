@@ -64,4 +64,4 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 
 .buffering-indicator{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;display:flex;align-items:center;gap:9px;padding:9px 13px;background:#000b;color:#fff;border-radius:3px;pointer-events:none;font-size:12px}.buffering-indicator span{width:15px;height:15px;border:2px solid #777;border-top-color:var(--yellow);border-radius:50%;animation:buffer-spin .8s linear infinite}@keyframes buffer-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.buffering-indicator span{animation:none}}
 
-.time-display .download-status{color:#38bdf8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time-display .buffer-status{color:#38bdf8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
