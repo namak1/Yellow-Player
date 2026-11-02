@@ -119,3 +119,7 @@ The **«15 / 15»** playback buttons jump backward/forward 15 seconds. Speed sho
 Floating dialogs (Preferences, Subtitle Browser, Skip Ranges, and other dialogs) can be moved by dragging their title bars. Each remembers its own position on this device. Double-click a title bar to center it; focus the title bar and use arrow keys for keyboard movement (Shift for fine movement). Positions stay within the player viewport after resizing or changing fullscreen.
 
 Single-click video does nothing; double-click pauses/resumes. Enter, Ctrl+Enter, and Alt+Enter toggle fullscreen outside text fields and dialogs.
+
+### Recent playback
+
+Use **Recent** in the title bar, player menu, or playlist footer to replay the latest 30 local files and URLs. URLs reopen directly. Local files reopen from the current queue, or use saved file handles where supported; the browser may ask for permission or require choosing the same file again after a reload. Recent stores metadata and file handles, not copies of your videos. Individual entries can be removed, or the list cleared.

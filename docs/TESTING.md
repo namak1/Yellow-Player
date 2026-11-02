@@ -113,3 +113,7 @@ Skip editor accepts 0:20:10:200–0:22:15:400, preserves the values when editing
 URL playback now passes the URL to AudioTrackSession and uses Mediabunny UrlSource with a 32 MiB cache and bounded retries. Local BlobSource behavior is preserved. Network tracks use existing AC-3/E-AC-3/DTS software decoders and the same synchronized audio route as local files.
 
 Tests serve generated AC-3, E-AC-3 and DTS six-channel MKV fixtures through an HTTP Range server. All tracks are discovered, selected by automatic routing, and decode finite, non-silent PCM after forward/backward seeks. Connection failures reject inspection. The supplied movie URL redirected to a CDN returning HTTP 503 during inspection; its actual codec and playback could not be verified. Browser CORS permission and server availability remain necessary.
+
+## Recent playback (v0.6.13)
+
+Recent records played local media and network URLs, deduplicates by source identity, retains up to 30 entries and migrates the old display-only name history. Tests cover same-name distinct URLs, matching local reselections, metadata-only storage, preserved handles, permission outcomes and missing files. Browser checks verified mixed local/URL history, direct replay from the queue, URL replay after reload, and local file reselection after reload. Saved native file-handle permissions are covered with test doubles; cloud HTTP preview exercised the file-input fallback. No full media files or transient blob URLs are stored in history.
