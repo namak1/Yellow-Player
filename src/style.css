@@ -66,4 +66,6 @@ html,body,.desktop-player,.desktop-player .workspace,.desktop-player main,.deskt
 
 .time-display .buffer-status{color:#38bdf8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.window-tools .recent-button{height:29px;border:0;border-left:1px solid var(--line);color:var(--text);padding:0 8px;gap:4px}.recent-item{display:flex;align-items:center;gap:7px;border-top:1px solid var(--line);padding:7px 0}.recent-play{flex:1;min-width:0;text-align:left;justify-content:flex-start;border:0}.recent-play>span{min-width:0;flex:1}.recent-play strong,.recent-play small{display:block;overflow-wrap:anywhere}.recent-play strong{font-weight:500}.recent-play small{color:var(--muted);font-size:10px;margin-top:5px}.recent-url{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px;margin-top:3px}.recent-list{min-width:0}.recent-item>button{flex-shrink:0}.recent-item>.recent-play{flex-shrink:1}
+.window-tools .recent-button{height:29px;border:0;border-left:1px solid var(--line);color:var(--text);padding:0 8px;gap:4px}
+
+.recent-menu .menu-column{width:min(520px,calc(100vw - 16px));min-width:0}.recent-menu .menu-column>button>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.recent-menu .menu-column kbd{display:none}
