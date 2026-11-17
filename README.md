@@ -123,3 +123,5 @@ Single-click video does nothing; double-click pauses/resumes. Enter, Ctrl+Enter,
 ### Recent playback
 
 Use **Recent** in the title bar, player menu, or playlist footer to replay the latest five local files and URLs. URLs reopen directly. Local files reopen from the current queue, or use saved file handles where supported; the browser may ask for permission or require choosing the same file again after a reload. Recent stores metadata and file handles, not copies of your videos. Recent is a compact filename-only menu with a Clear Menu action.
+
+Imported subtitles are saved locally with their video and restored when the same video is reopened, including through Recent. Clearing browser data removes these saved copies. Mouse wheel over the video and ↑ / ↓ adjust volume in 5% steps with a brief on-screen indicator; adjusting volume unmutes playback. Ctrl + wheel still zooms and Shift + wheel seeks.
