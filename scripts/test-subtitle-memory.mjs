@@ -1,0 +1,41 @@
+import {chromium} from 'playwright';
+import {spawn} from 'node:child_process';
+import assert from 'node:assert/strict';
+const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port','4174']);
+let browser;
+try{
+ for(let i=0;i<100;i++){try{if((await fetch('http://127.0.0.1:4174')).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
+ browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_CHANNEL?{channel:process.env.PLAYWRIGHT_CHANNEL}:{})});
+ const page=await browser.newPage();
+ await page.goto('http://127.0.0.1:4174');
+ const upload=page.locator('input[type=file]').nth(0);
+ await upload.setInputFiles(['tests/fixtures/embedded.mp4','tests/fixtures/test.srt']);
+ await page.getByRole('button',{name:'Subtitle controls',exact:true}).click();
+ const primary=page.getByLabel('Primary subtitle track',{exact:true});
+ await primary.locator('option',{hasText:'test.srt'}).waitFor({state:'attached'});
+ assert.notEqual(await primary.inputValue(),'');
+ await upload.setInputFiles('tests/fixtures/embedded.mkv');
+ await page.waitForTimeout(200);
+ assert.equal(await primary.locator('option',{hasText:'test.srt'}).count(),0);
+ assert.ok(!(await primary.inputValue()).startsWith('test.srt:'));
+ await upload.setInputFiles('tests/fixtures/embedded.mp4');
+ await primary.locator('option',{hasText:'test.srt'}).waitFor({state:'attached'});
+ assert.notEqual(await primary.inputValue(),'');
+ await page.reload();
+ await upload.setInputFiles('tests/fixtures/embedded.mp4');
+ await page.getByRole('button',{name:'Subtitle controls',exact:true}).click();
+ await primary.locator('option',{hasText:'test.srt'}).waitFor({state:'attached'});
+ assert.notEqual(await primary.inputValue(),'');
+ await page.locator('.stage').click({position:{x:5,y:5}});
+ await page.keyboard.press('ArrowDown');
+ assert.match(await page.locator('.volume-osd').innerText(),/75%/);
+ await page.keyboard.press('ArrowUp');
+ assert.match(await page.locator('.volume-osd').innerText(),/80%/);
+ await page.locator('.stage').hover();
+ await page.mouse.wheel(0,100);
+ await page.waitForTimeout(100);
+ assert.match(await page.locator('.volume-osd').innerText(),/75%/);
+ await page.waitForTimeout(1100);
+ assert.equal(await page.locator('.volume-osd').count(),0);
+ console.log('Subtitle isolation, combined import, reload persistence, keyboard/wheel volume and OSD timeout passed.');
+}finally{await browser?.close();server.kill();}
